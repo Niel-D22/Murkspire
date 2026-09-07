@@ -86,6 +86,10 @@ module.exports = {
 					from: { opacity: 0, transform: 'scaleX(0.55)' },
 					to: { opacity: 1, transform: 'scaleX(1)' },
 				},
+				'page-in': {
+					from: { opacity: 0, transform: 'translateY(10px)' },
+					to:   { opacity: 1, transform: 'translateY(0)' },
+				},
 				'row-in': {
 					'0%':   { opacity: 0, transform: 'translateY(-8px)', backgroundColor: 'rgba(255,90,54,.22)' },
 					'55%':  { opacity: 1, transform: 'translateY(0)',    backgroundColor: 'rgba(255,90,54,.14)' },
@@ -104,6 +108,7 @@ module.exports = {
 				'bar-in': 'bar-in 0.7s cubic-bezier(0.22,1,0.36,1) both',
 				'float-y': 'float-y 7s ease-in-out infinite',
 				'row-in': 'row-in 1.8s cubic-bezier(.22,1,.36,1) both',
+				'page-in': 'page-in .42s cubic-bezier(.22,1,.36,1) both',
 			},
 		},
 	},

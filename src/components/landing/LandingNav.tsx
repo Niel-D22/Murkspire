@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
-import Logo from "../../../public/logo-512.png";
 import { XIcon, X_URL } from "../brand/XIcon";
 
 const LINKS = [
-  { label: "Features", href: "#features" },
-  { label: "How it works", href: "#how-it-works" },
+  { label: "Features", href: "/#features" },
+  { label: "How it works", href: "/#how-it-works" },
   { label: "Docs", href: "/docs" },
 ];
 
@@ -31,18 +30,18 @@ export function LandingNav() {
         }`}
       >
         <Link to="/" aria-label="Murkspire home">
-          <img src={Logo} alt="Murkspire logo" className="h-8 w-auto" />
+          <img src="/logo-512.png" alt="Murkspire" className="h-8 w-auto" />
         </Link>
 
         <div className="hidden items-center gap-8 md:flex">
           {LINKS.map((l) => (
-            <a
+            <Link
               key={l.href}
-              href={l.href}
+              to={l.href}
               className="font-mono text-[11px] uppercase tracking-[0.16em] text-zinc-400 transition-colors hover:text-bone"
             >
               {l.label}
-            </a>
+            </Link>
           ))}
         </div>
 
@@ -78,14 +77,14 @@ export function LandingNav() {
       {open && (
         <div className="glass mx-auto mt-2 max-w-6xl space-y-1 p-4 md:hidden">
           {LINKS.map((l) => (
-            <a
+            <Link
               key={l.href}
-              href={l.href}
+              to={l.href}
               onClick={() => setOpen(false)}
               className="block rounded-lg px-3 py-2.5 font-mono text-xs uppercase tracking-[0.14em] text-zinc-300 hover:bg-white/5 hover:text-bone"
             >
               {l.label}
-            </a>
+            </Link>
           ))}
           <Link
             to="/app"
