@@ -61,7 +61,7 @@ export const WalletButton: FC = () => {
   if (!connected || !publicKey) {
     return (
       <div className="wallet-button-wrapper">
-        <WalletMultiButton className="!h-9 !rounded-[10px] !bg-spire !px-3 !py-0 !font-sans !text-[12px] !font-semibold !text-murk hover:!bg-spire-400 sm:!px-4 sm:!text-sm" />
+        <WalletMultiButton />
       </div>
     );
   }

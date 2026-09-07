@@ -1,4 +1,4 @@
-import { Fragment, ReactNode } from 'react';
+import { ReactNode } from 'react';
 import AnimatedContent from '../backgrounds/AnimatedContent';
 import SpotlightCard from '../backgrounds/SpotlightCard';
 import { CountUp } from './CountUp';
@@ -74,7 +74,7 @@ export function HowItWorks() {
         {/* Pipeline */}
         <div className="mt-16 flex flex-col items-stretch gap-6 lg:flex-row lg:gap-0">
           {STAGES.map((stage, i) => (
-            <Fragment key={stage.title}>
+            <div key={stage.title} className="contents">
               {i > 0 && <Connector label={CONNECTORS[i - 1]} />}
 
               <AnimatedContent
@@ -105,7 +105,7 @@ export function HowItWorks() {
                   <p className="mt-6 font-mono text-[11px] text-zinc-600">{stage.note}</p>
                 </SpotlightCard>
               </AnimatedContent>
-            </Fragment>
+            </div>
           ))}
         </div>
 

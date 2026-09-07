@@ -1,4 +1,5 @@
 import { LandingNav } from '../components/landing/LandingNav';
+import { CursorGlow } from '../components/landing/CursorGlow';
 import { HeroIntro } from '../components/landing/HeroIntro';
 import { Hero } from '../components/landing/Hero';
 import { TheMurk } from '../components/landing/TheMurk';
@@ -7,6 +8,7 @@ import { MarketBand } from '../components/landing/MarketBand';
 import { StakingBand } from '../components/landing/StakingBand';
 import { FeedBand } from '../components/landing/FeedBand';
 import { HowItWorks } from '../components/landing/HowItWorks';
+import { Roadmap } from '../components/landing/Roadmap';
 import { BuiltOn } from '../components/landing/BuiltOn';
 import { Trust } from '../components/landing/Trust';
 import { Faq } from '../components/landing/Faq';
@@ -17,6 +19,7 @@ export default function Landing() {
     /* overflow-x-clip is a safety net: no section should ever push the
        viewport sideways on a phone. */
     <div className="min-h-screen overflow-x-clip bg-murk text-bone">
+      <CursorGlow />
       <LandingNav />
 
       <main>
@@ -43,6 +46,10 @@ export default function Landing() {
         </div>
 
         <HowItWorks />
+
+        <div id="roadmap">
+          <Roadmap />
+        </div>
         <BuiltOn />
 
         <div id="trust">

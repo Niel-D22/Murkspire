@@ -161,6 +161,78 @@
   .no-scrollbar::-webkit-scrollbar { display: none; }
 }
 
+/* ------------------------------------------------------------------ *
+ * Solana wallet adapter overrides
+ *
+ * The adapter ships its own stylesheet with a hard-coded 48px height,
+ * 16px type and a purple fill, so the button arrived looking nothing like
+ * the rest of the header. These rules pull it onto the Murkspire scale.
+ * ------------------------------------------------------------------ */
+.wallet-adapter-button,
+.wallet-adapter-button-trigger {
+  height: 36px !important;
+  padding: 0 14px !important;
+  border-radius: 10px !important;
+  border: 1px solid rgba(255, 255, 255, 0.09) !important;
+  background: rgba(255, 255, 255, 0.03) !important;
+  color: #f5f5f2 !important;
+  font-family: 'Space Grotesk', system-ui, sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  line-height: 1 !important;
+  transition: border-color 0.25s ease, background-color 0.25s ease !important;
+}
+
+.wallet-adapter-button:not([disabled]):hover,
+.wallet-adapter-button-trigger:not([disabled]):hover {
+  border-color: rgba(255, 90, 54, 0.45) !important;
+  background: rgba(255, 90, 54, 0.08) !important;
+  color: #f5f5f2 !important;
+}
+
+.wallet-adapter-button-start-icon,
+.wallet-adapter-button-end-icon,
+.wallet-adapter-button-start-icon img,
+.wallet-adapter-button-end-icon img {
+  width: 16px !important;
+  height: 16px !important;
+}
+
+@media (min-width: 640px) {
+  .wallet-adapter-button,
+  .wallet-adapter-button-trigger {
+    font-size: 13px !important;
+    padding: 0 16px !important;
+  }
+}
+
+/* Wallet picker modal */
+.wallet-adapter-modal-wrapper {
+  background: #101114 !important;
+  border: 1px solid rgba(255, 255, 255, 0.09) !important;
+  border-radius: 14px !important;
+  font-family: 'Space Grotesk', system-ui, sans-serif !important;
+}
+.wallet-adapter-modal-title {
+  color: #f5f5f2 !important;
+  font-size: 18px !important;
+}
+.wallet-adapter-modal-list li button {
+  border-radius: 10px !important;
+  font-size: 14px !important;
+  color: #f5f5f2 !important;
+}
+.wallet-adapter-modal-list li button:hover {
+  background: rgba(255, 90, 54, 0.08) !important;
+}
+.wallet-adapter-modal-button-close {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-radius: 10px !important;
+}
+.wallet-adapter-modal-list-more {
+  color: #ff5a36 !important;
+}
+
 /* Loading shimmer (used by dashboard pages) */
 @keyframes shimmer {
   0%   { background-position: -1000px 0; }

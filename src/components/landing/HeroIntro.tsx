@@ -171,21 +171,12 @@ export function HeroIntro() {
               playsInline
               preload="auto"
               aria-hidden="true"
-              /* scale-110 crops the frame edges, which is what removes the
-                 generator watermark baked into the bottom-right corner. */
-              className="h-full w-full scale-110 object-cover"
+              /* A light overscan only, to hide encoder edge artefacts. The
+                 generator watermark is removed from the file itself. */
+              className="h-full w-full scale-105 object-cover"
             />
           )}
         </div>
-
-        {/* Corner scrim: second line of defence over the watermark area */}
-        <div
-          className="pointer-events-none absolute bottom-0 right-0 h-40 w-72"
-          style={{
-            background:
-              'radial-gradient(ellipse at bottom right, #000 0%, rgba(0,0,0,.9) 40%, transparent 75%)',
-          }}
-        />
 
         {/* Falloff into the page background.
             Every stop is written in the murk colour's own rgba — Tailwind's

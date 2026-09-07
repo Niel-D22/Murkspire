@@ -21,13 +21,21 @@ export function LandingNav() {
   }, []);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 px-4 pt-4 sm:px-6">
+    /* At the very top the bar sits flush and full width with no surface of
+       its own, so nothing competes with the title sequence. Once the reader
+       scrolls it contracts into the floating glass pill. */
+    <header
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ease-out ${
+        scrolled ? "px-4 pt-4 sm:px-6" : "px-0 pt-0"
+      }`}
+    >
       <nav
-        className={`mx-auto flex max-w-6xl items-center justify-between rounded-[14px] px-4 py-2.5 transition-all duration-300 sm:px-6 ${
+        className={`mx-auto flex items-center justify-between transition-all duration-500 ease-out ${
           scrolled
-            ? "glass shadow-glass"
-            : "border border-white/[0.07] bg-white/[0.02] backdrop-blur-md"
+            ? "glass rounded-[14px] px-4 py-2.5 shadow-glass sm:px-6"
+            : "rounded-none border-0 bg-transparent px-5 py-5 shadow-none sm:px-10"
         }`}
+        style={{ maxWidth: scrolled ? "72rem" : "100%" }}
       >
         <Link to="/" className="flex items-center gap-2.5" aria-label="Murkspire home">
           <img src="/logo-512.png" alt="" aria-hidden="true" className="h-8 w-auto" />
