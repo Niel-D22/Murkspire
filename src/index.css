@@ -155,6 +155,10 @@
     mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
   }
   .text-balance { text-wrap: balance; }
+
+  /* Horizontal tab strips scroll on phones; the bar itself is noise. */
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
 }
 
 /* Loading shimmer (used by dashboard pages) */

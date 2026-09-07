@@ -1,7 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { Activity, TrendingUp, Layers, Radio, ArrowLeft } from 'lucide-react';
 import { WalletButton } from '../WalletButton';
-import { LogoHorizontal } from '../brand/Logo';
 import { XIcon, X_URL } from '../brand/XIcon';
 
 interface LayoutProps {
@@ -32,10 +31,17 @@ export default function Layout({ children }: LayoutProps) {
 
       <div className="relative z-10 flex min-h-screen flex-col">
         <header className="fixed inset-x-0 top-0 z-50 border-b border-white/[0.06] bg-murk/70 backdrop-blur-xl">
-          <div className="container mx-auto flex h-16 items-center justify-between gap-4">
-            <Link to="/" className="group flex items-center gap-3" aria-label="Murkspire home">
-              <ArrowLeft className="h-3.5 w-3.5 text-zinc-600 transition-colors group-hover:text-spire" />
-              <LogoHorizontal />
+          <div className="container mx-auto flex h-16 items-center justify-between gap-3">
+            <Link
+              to="/"
+              className="group flex min-w-0 shrink items-center gap-2 sm:gap-3"
+              aria-label="Murkspire home"
+            >
+              <ArrowLeft className="hidden h-3.5 w-3.5 shrink-0 text-zinc-600 transition-colors group-hover:text-spire sm:block" />
+              <img src="/logo-512.png" alt="" aria-hidden="true" className="h-7 w-auto shrink-0" />
+              <span className="hidden truncate font-sans text-[14px] font-medium tracking-[0.26em] text-bone sm:inline">
+                MURKSPIRE
+              </span>
             </Link>
 
             <nav className="hidden items-center gap-1 rounded-[12px] border border-white/[0.07] bg-white/[0.02] p-1 backdrop-blur-md lg:flex">
@@ -58,7 +64,7 @@ export default function Layout({ children }: LayoutProps) {
               })}
             </nav>
 
-            <div className="flex items-center gap-3">
+            <div className="flex shrink-0 items-center gap-2 sm:gap-3">
               <span className="hidden items-center gap-2 rounded-md border border-white/[0.07] px-3 py-1.5 xl:flex">
                 <span className="relative flex h-1.5 w-1.5">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-spire opacity-75" />
@@ -82,7 +88,7 @@ export default function Layout({ children }: LayoutProps) {
           </div>
 
           {/* Mobile nav */}
-          <nav className="flex gap-1 overflow-x-auto border-t border-white/[0.06] px-4 py-2 lg:hidden">
+          <nav className="no-scrollbar mask-fade-x flex gap-1 overflow-x-auto border-t border-white/[0.06] px-4 py-2 lg:hidden">
             {NAV.map(({ path, label, icon: Icon }) => {
               const active = pathname === path;
               return (

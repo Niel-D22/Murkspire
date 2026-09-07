@@ -1,7 +1,6 @@
-import { FC, useState } from 'react';
-import { useWallet } from '@solana/wallet-adapter-react';
+import { FC, useCallback, useEffect, useRef, useState } from 'react';
+import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
-import { useConnection } from '@solana/wallet-adapter-react';
 import { LAMPORTS_PER_SOL } from '@solana/web3.js';
 import { Wallet, ChevronDown, Copy, LogOut, ExternalLink, Check } from 'lucide-react';
 
@@ -9,120 +8,147 @@ export const WalletButton: FC = () => {
   const { publicKey, disconnect, connected } = useWallet();
   const { connection } = useConnection();
   const [balance, setBalance] = useState<number | null>(null);
-  const [showDropdown, setShowDropdown] = useState(false);
+  const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+  const wrapRef = useRef<HTMLDivElement>(null);
 
-  // Fetch balance when connected
-  useState(() => {
-    if (publicKey && connected) {
-      connection.getBalance(publicKey).then((bal) => {
-        setBalance(bal / LAMPORTS_PER_SOL);
-      });
-    } else {
+  /* Was written as useState(() => ...), which only runs its initialiser once
+     on mount and throws the result away, so the balance never arrived after
+     connecting. It needs to be an effect keyed on the connected key. */
+  useEffect(() => {
+    let cancelled = false;
+    if (!publicKey || !connected) {
       setBalance(null);
+      return;
     }
-  });
+    connection
+      .getBalance(publicKey)
+      .then((lamports) => {
+        if (!cancelled) setBalance(lamports / LAMPORTS_PER_SOL);
+      })
+      .catch(() => {
+        if (!cancelled) setBalance(null);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [publicKey, connected, connection]);
 
-  const formatAddress = (address: string) => {
-    return `${address.slice(0, 4)}...${address.slice(-4)}`;
-  };
+  // Close on outside click and on Escape.
+  useEffect(() => {
+    if (!open) return;
+    const onDown = (e: MouseEvent) => {
+      if (wrapRef.current && !wrapRef.current.contains(e.target as Node)) setOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false);
+    document.addEventListener('mousedown', onDown);
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('mousedown', onDown);
+      document.removeEventListener('keydown', onKey);
+    };
+  }, [open]);
 
-  const copyAddress = () => {
-    if (publicKey) {
-      navigator.clipboard.writeText(publicKey.toString());
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    }
-  };
+  const short = (a: string) => `${a.slice(0, 4)}…${a.slice(-4)}`;
 
-  const openExplorer = () => {
-    if (publicKey) {
-      window.open(`https://solscan.io/account/${publicKey.toString()}`, '_blank');
-    }
-  };
+  const copyAddress = useCallback(() => {
+    if (!publicKey) return;
+    navigator.clipboard.writeText(publicKey.toString());
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  }, [publicKey]);
 
   if (!connected || !publicKey) {
     return (
       <div className="wallet-button-wrapper">
-        <WalletMultiButton className="!bg-white !text-black !font-bold !rounded-lg !px-4 !py-2 hover:!bg-zinc-200 !transition-colors" />
+        <WalletMultiButton className="!h-9 !rounded-[10px] !bg-spire !px-3 !py-0 !font-sans !text-[12px] !font-semibold !text-murk hover:!bg-spire-400 sm:!px-4 sm:!text-sm" />
       </div>
     );
   }
 
+  const address = publicKey.toString();
+
   return (
-    <div className="relative">
+    <div ref={wrapRef} className="relative">
       <button
-        onClick={() => setShowDropdown(!showDropdown)}
-        className="flex items-center space-x-3 bg-zinc-900 border border-zinc-800 rounded-lg px-4 py-2 hover:bg-zinc-800 transition-all"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        className="flex h-9 items-center gap-2 rounded-[10px] border border-white/[0.09] bg-white/[0.03] px-2.5 transition-colors hover:border-white/20 sm:gap-2.5 sm:px-3"
       >
-        <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
-          <Wallet className="w-4 h-4 text-black" />
-        </div>
-        <div className="text-left">
-          <p className="text-xs text-zinc-500">Wallet Connected</p>
-          <p className="text-sm font-mono text-white">{formatAddress(publicKey.toString())}</p>
-        </div>
+        <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-spire/15 ring-1 ring-spire/30">
+          <Wallet className="h-3 w-3 text-spire" />
+        </span>
+
+        {/* Compact on phones: address only. Labels and balance appear when
+            there is room for them. */}
+        <span className="font-mono text-[12px] text-bone">{short(address)}</span>
+
         {balance !== null && (
-          <div className="text-right">
-            <p className="text-xs text-zinc-500">Balance</p>
-            <p className="text-sm font-semibold text-white">{balance.toFixed(4)} SOL</p>
-          </div>
+          <span className="hidden border-l border-white/[0.09] pl-2.5 font-mono text-[12px] text-zinc-400 lg:inline">
+            {balance.toFixed(2)} SOL
+          </span>
         )}
-        <ChevronDown className={`w-4 h-4 text-zinc-500 transition-transform ${showDropdown ? 'rotate-180' : ''}`} />
+
+        <ChevronDown
+          className={`h-3.5 w-3.5 shrink-0 text-zinc-500 transition-transform ${
+            open ? 'rotate-180' : ''
+          }`}
+        />
       </button>
 
-      {showDropdown && (
-        <>
-          <div
-            className="fixed inset-0 z-40"
-            onClick={() => setShowDropdown(false)}
-          />
-          <div className="absolute right-0 mt-2 w-64 bg-zinc-950 border border-zinc-800 rounded-lg shadow-xl z-50">
-            <div className="p-4 border-b border-zinc-800">
-              <p className="text-xs text-zinc-500 mb-1">Wallet Address</p>
-              <p className="text-sm font-mono text-white break-all">{publicKey.toString()}</p>
-              {balance !== null && (
-                <div className="mt-3 pt-3 border-t border-zinc-800">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs text-zinc-500">Balance</span>
-                    <span className="text-lg font-bold text-white">{balance.toFixed(4)} SOL</span>
-                  </div>
-                </div>
-              )}
-            </div>
-            <div className="p-2">
-              <button
-                onClick={copyAddress}
-                className="w-full flex items-center space-x-3 px-3 py-2 hover:bg-zinc-900 rounded-lg transition-colors text-left"
-              >
-                {copied ? (
-                  <Check className="w-4 h-4 text-white" />
-                ) : (
-                  <Copy className="w-4 h-4 text-zinc-400" />
-                )}
-                <span className="text-sm text-zinc-300">{copied ? 'Copied!' : 'Copy Address'}</span>
-              </button>
-              <button
-                onClick={openExplorer}
-                className="w-full flex items-center space-x-3 px-3 py-2 hover:bg-zinc-900 rounded-lg transition-colors text-left"
-              >
-                <ExternalLink className="w-4 h-4 text-zinc-400" />
-                <span className="text-sm text-zinc-300">View on Solscan</span>
-              </button>
-              <div className="border-t border-zinc-800 my-2" />
-              <button
-                onClick={() => {
-                  disconnect();
-                  setShowDropdown(false);
-                }}
-                className="w-full flex items-center space-x-3 px-3 py-2 hover:bg-zinc-900 rounded-lg transition-colors text-left group"
-              >
-                <LogOut className="w-4 h-4 text-zinc-400 group-hover:text-white" />
-                <span className="text-sm text-zinc-400 group-hover:text-white">Disconnect</span>
-              </button>
-            </div>
+      {open && (
+        <div className="glass absolute right-0 z-50 mt-2 w-[min(17rem,calc(100vw-2rem))] overflow-hidden shadow-glass">
+          <div className="border-b border-white/[0.07] p-4">
+            <p className="mono-label">Wallet address</p>
+            <p className="mt-1.5 break-all font-mono text-[12px] text-bone">{address}</p>
+
+            {balance !== null && (
+              <div className="mt-3 flex items-center justify-between border-t border-white/[0.07] pt-3">
+                <span className="mono-label">Balance</span>
+                <span className="font-mono text-base text-spire">{balance.toFixed(4)} SOL</span>
+              </div>
+            )}
           </div>
-        </>
+
+          <div className="p-1.5">
+            <button
+              onClick={copyAddress}
+              className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left transition-colors hover:bg-white/[0.05]"
+            >
+              {copied ? (
+                <Check className="h-3.5 w-3.5 text-spire" />
+              ) : (
+                <Copy className="h-3.5 w-3.5 text-zinc-500" />
+              )}
+              <span className="text-[13px] text-zinc-300">
+                {copied ? 'Copied' : 'Copy address'}
+              </span>
+            </button>
+
+            <a
+              href={`https://solscan.io/account/${address}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left transition-colors hover:bg-white/[0.05]"
+            >
+              <ExternalLink className="h-3.5 w-3.5 text-zinc-500" />
+              <span className="text-[13px] text-zinc-300">View on Solscan</span>
+            </a>
+
+            <div className="my-1.5 border-t border-white/[0.07]" />
+
+            <button
+              onClick={() => {
+                disconnect();
+                setOpen(false);
+              }}
+              className="group flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left transition-colors hover:bg-white/[0.05]"
+            >
+              <LogOut className="h-3.5 w-3.5 text-zinc-500 group-hover:text-spire" />
+              <span className="text-[13px] text-zinc-400 group-hover:text-bone">Disconnect</span>
+            </button>
+          </div>
+        </div>
       )}
     </div>
   );
