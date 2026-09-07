@@ -895,3 +895,6 @@
 
 .vercel
 .env*
+
+# Source media, not deployed
+assets-src/

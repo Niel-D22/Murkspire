@@ -42,6 +42,50 @@ export function HeroIntro() {
     setSrc(wide && !saveData ? SRC_DESKTOP : SRC_MOBILE);
   }, []);
 
+  /* iOS unlock.
+     Safari on iOS refuses to decode and paint frames for a video that has
+     never been played, so setting currentTime does nothing and the poster
+     stays frozen. Calling play() synchronously inside the first real user
+     gesture, then pausing immediately, promotes the element to a decoded
+     state and scrubbing starts working. Desktop and Android do not need
+     this, but it is harmless there. */
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    let unlocked = false;
+
+    const detach = () => {
+      window.removeEventListener('touchstart', unlock);
+      window.removeEventListener('touchend', unlock);
+      window.removeEventListener('pointerdown', unlock);
+      window.removeEventListener('click', unlock);
+    };
+
+    function unlock() {
+      if (unlocked) return;
+      unlocked = true;
+      const el = videoRef.current;
+      if (el) {
+        // Must be called synchronously in the gesture to satisfy iOS.
+        const played = el.play();
+        if (played && typeof played.then === 'function') {
+          played.then(() => el.pause()).catch(() => {});
+        } else {
+          el.pause();
+        }
+      }
+      detach();
+    }
+
+    window.addEventListener('touchstart', unlock, { passive: true });
+    window.addEventListener('touchend', unlock, { passive: true });
+    window.addEventListener('pointerdown', unlock, { passive: true });
+    window.addEventListener('click', unlock);
+
+    return detach;
+  }, [src]);
+
   /* Drive video.currentTime from scroll, eased so trackpad jitter doesn't
      cause visible stepping. Seeking is expensive, so we only write when the
      frame would actually change. */

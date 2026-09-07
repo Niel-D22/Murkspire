@@ -29,8 +29,11 @@ export function LandingNav() {
             : "border border-white/[0.07] bg-white/[0.02] backdrop-blur-md"
         }`}
       >
-        <Link to="/" aria-label="Murkspire home">
-          <img src="/logo-512.png" alt="Murkspire" className="h-8 w-auto" />
+        <Link to="/" className="flex items-center gap-2.5" aria-label="Murkspire home">
+          <img src="/logo-512.png" alt="" aria-hidden="true" className="h-8 w-auto" />
+          <span className="font-sans text-[15px] font-medium tracking-[0.28em] text-bone">
+            MURKSPIRE
+          </span>
         </Link>
 
         <div className="hidden items-center gap-8 md:flex">
