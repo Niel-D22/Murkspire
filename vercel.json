@@ -1,0 +1,19 @@
+{
+    "buildCommand": "npm run build",
+    "devCommand": "npm run dev",
+    "installCommand": "npm install --no-audit --no-fund",
+    "framework": "vite",
+    "outputDirectory": "dist",
+    "redirects": [
+        {
+            "source": "/",
+            "destination": "/whale-activity"
+        }
+    ],
+    "rewrites": [
+        {
+            "source": "/:path*",
+            "destination": "/index.html"
+        }
+    ]
+}

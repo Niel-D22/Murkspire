@@ -1,0 +1,187 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --radius: 0.75rem;
+    --murk: #0C0D0F;
+    --spire: #FF5A36;
+    --bone: #F5F5F2;
+    --slatex: #4A5158;
+  }
+
+  * {
+    @apply border-zinc-800;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-murk text-bone antialiased;
+    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  }
+
+  ::selection {
+    background: rgba(255, 90, 54, 0.28);
+    color: #F5F5F2;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: #0C0D0F; }
+  ::-webkit-scrollbar-thumb {
+    background: #2A2D33;
+    border-radius: 8px;
+    border: 2px solid #0C0D0F;
+  }
+  ::-webkit-scrollbar-thumb:hover { background: #3A3E45; }
+}
+
+@layer components {
+  /* ---------- Glass surfaces ---------- */
+  .glass {
+    background: linear-gradient(145deg, rgba(255,255,255,.055), rgba(255,255,255,.018));
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,.09);
+    border-radius: 14px;
+  }
+
+  .glass-sm {
+    background: linear-gradient(145deg, rgba(255,255,255,.055), rgba(255,255,255,.018));
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,.09);
+    border-radius: 10px;
+  }
+
+  .glass-accent {
+    border-color: rgba(255,90,54,.28);
+    box-shadow: 0 0 60px -18px rgba(255,90,54,.45);
+  }
+
+  /* ---------- Dashboard primitives (inherited by existing pages) ---------- */
+  .card {
+    @apply bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 rounded-xl p-6;
+  }
+
+  .stat-card {
+    @apply card transition-all duration-300;
+  }
+  .stat-card:hover {
+    border-color: rgba(255, 90, 54, 0.3);
+    box-shadow: 0 0 40px -20px rgba(255, 90, 54, 0.5);
+  }
+
+  .badge {
+    @apply px-2.5 py-1 rounded-md text-xs font-semibold;
+  }
+  .badge-success {
+    @apply badge bg-zinc-800 text-zinc-200 border border-zinc-700;
+  }
+  .badge-warning {
+    @apply badge bg-zinc-900 text-zinc-300 border border-zinc-600 border-dashed;
+  }
+  .badge-danger {
+    @apply badge border;
+    background: rgba(255, 90, 54, 0.14);
+    color: #FF9B84;
+    border-color: rgba(255, 90, 54, 0.35);
+  }
+  .badge-info {
+    @apply badge bg-zinc-900 text-zinc-400 border border-zinc-700;
+  }
+
+  /* ---------- Landing primitives ---------- */
+  .pill {
+    @apply inline-flex items-center justify-center gap-2 rounded-[10px] font-medium
+           transition-all duration-300 whitespace-nowrap;
+  }
+  .pill-primary {
+    @apply pill bg-spire text-murk hover:bg-spire-400;
+    box-shadow: 0 0 40px -12px rgba(255,90,54,.7);
+  }
+  .pill-ghost {
+    @apply pill text-bone border border-white/15 hover:border-white/30 hover:bg-white/5;
+    backdrop-filter: blur(12px);
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-md border border-white/10
+           bg-white/[0.04] px-3 py-1.5 text-[11px] font-medium uppercase
+           tracking-[0.18em] text-zinc-300 backdrop-blur;
+  }
+
+  .mono-label {
+    @apply font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-500;
+  }
+}
+
+@layer components {
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee 32s linear infinite;
+  }
+  .marquee-track:hover { animation-play-state: paused; }
+
+  /* The hero panel sits flat on phones — perspective there only wastes
+     vertical space and makes the table harder to read. */
+  .tilt-panel {
+    transform: none;
+  }
+  @media (min-width: 1024px) {
+    .tilt-panel {
+      transform: rotateX(15deg) rotateY(-5deg) rotateZ(-1.5deg);
+    }
+  }
+}
+
+@layer utilities {
+  /* Fade the top of the hero background (replaces ColorBends' fadeTop prop) */
+  .mask-fade-top {
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 38%, black 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, black 38%, black 100%);
+  }
+  .mask-fade-bottom {
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 42%, rgba(0,0,0,.45) 72%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 0%, black 42%, rgba(0,0,0,.45) 72%, transparent 100%);
+  }
+  .mask-fade-x {
+    -webkit-mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+  }
+  .text-balance { text-wrap: balance; }
+}
+
+/* Loading shimmer (used by dashboard pages) */
+@keyframes shimmer {
+  0%   { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+.shimmer {
+  animation: shimmer 2s infinite;
+  background: linear-gradient(
+    to right,
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,.04) 50%,
+    rgba(255,255,255,0) 100%
+  );
+  background-size: 1000px 100%;
+}
+
+.animate-pulse-slow {
+  animation: pulse 3s cubic-bezier(.4,0,.6,1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
