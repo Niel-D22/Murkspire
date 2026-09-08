@@ -46,15 +46,16 @@ const DEXES = [
 
 function Timeframe({ label, active }: { label: string; active?: boolean }) {
   return (
-    <button
-      className={`rounded-lg border px-3 py-1.5 font-mono text-xs transition-colors ${
+    <span
+      aria-hidden="true"
+      className={`inline-flex rounded-lg border px-3 py-1.5 font-mono text-xs transition-colors ${
         active
           ? 'border-spire/60 bg-spire/10 text-spire'
           : 'border-white/[0.09] text-zinc-400 hover:border-white/20 hover:text-zinc-200'
       }`}
     >
       {label}
-    </button>
+    </span>
   );
 }
 
@@ -79,10 +80,10 @@ export function MarketBand() {
     >
       {/* Toolbar */}
       <div className="flex flex-wrap items-center gap-3 p-3 sm:p-4">
-        <button className="flex items-center gap-2 rounded-lg border border-white/[0.09] bg-black/40 px-3 py-2 font-mono text-xs text-zinc-200 transition-colors hover:border-white/20 sm:gap-3 sm:text-sm">
+        <span aria-hidden="true" className="flex items-center gap-2 rounded-lg border border-white/[0.09] bg-black/40 px-3 py-2 font-mono text-xs text-zinc-200 transition-colors hover:border-white/20 sm:gap-3 sm:text-sm">
           SOL / USDC
           <ChevronDown className="h-3.5 w-3.5 text-zinc-500" />
-        </button>
+        </span>
 
         <div className="flex gap-1.5 sm:gap-2">
           <Timeframe label="1H" />

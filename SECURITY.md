@@ -1,6 +1,6 @@
 # 🔒 Security Policy
 
-Keamanan adalah prioritas utama dalam pengembangan AgentSpy. Kebijakan ini menguraikan cara melaporkan vulnerability dan standar keamanan yang kamipegang.
+Keamanan adalah prioritas utama dalam pengembangan Murkspire. Kebijakan ini menguraikan cara melaporkan vulnerability dan standar keamanan yang kamipegang.
 
 ## 🛡️ Supported Versions
 
@@ -20,7 +20,7 @@ Kami mengambil security vulnerabilities secara serius. Jika Anda menemukan vulne
 **DO NOT** melaporkan security issues melalui public GitHub issues.
 
 **Preferred Method**: Email
-- Email: `security@agentspy.dev` (placeholder)
+- Email: `security@murkspire.dev` (placeholder)
 - Subject: `[SECURITY] Brief description of vulnerability`
 - Include detailed information (see template below)
 
@@ -49,7 +49,7 @@ Template untuk security report:
 - Proof of concept: [If available]
 
 ## Environment
-- Version: [AgentSpy version]
+- Version: [Murkspire version]
 - Environment: [Production/Staging/Development]
 - Browser/OS: [If applicable]
 - Additional context: [Any other relevant information]
@@ -329,8 +329,8 @@ Kami track security metrics untuk continuously improve:
 
 ## 📞 Contact Information
 
-- **Security Team**: security@agentspy.dev
-- **General Inquiries**: contact@agentspy.dev
+- **Security Team**: security@murkspire.dev
+- **General Inquiries**: contact@murkspire.dev
 - **Emergency**: [Phone number] (24/7)
 - **PGP Key**: [Will be provided upon request]
 
@@ -347,4 +347,4 @@ Kami track security metrics untuk continuously improve:
 **Last Updated**: November 19, 2025  
 **Next Review**: February 19, 2026
 
-*Security is a shared responsibility. Thank you untuk membantu menjaga AgentSpy secure.* 🛡️
+*Security is a shared responsibility. Thank you untuk membantu menjaga Murkspire secure.* 🛡️

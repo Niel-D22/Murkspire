@@ -233,6 +233,11 @@
   color: #ff5a36 !important;
 }
 
+@keyframes spire-pulse {
+  0%, 100% { opacity: .18; transform: scaleX(.82); }
+  50%      { opacity: 1;   transform: scaleX(1); }
+}
+
 /* Loading shimmer (used by dashboard pages) */
 @keyframes shimmer {
   0%   { background-position: -1000px 0; }

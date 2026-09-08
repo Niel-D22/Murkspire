@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { Activity, TrendingUp, Layers, Radio, ArrowLeft } from 'lucide-react';
-import { WalletButton } from '../WalletButton';
+import { WalletButton } from '../common/WalletButton';
 import { XIcon, X_URL } from '../brand/XIcon';
 
 interface LayoutProps {

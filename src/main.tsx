@@ -1,21 +1,19 @@
 import { Buffer } from 'buffer';
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import { ErrorBoundary } from './components/ErrorBoundary.tsx'
-import { WalletContextProvider } from './contexts/WalletContextProvider.tsx'
-import './index.css'
-import App from './App.tsx'
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import { ErrorBoundary } from './components/common/ErrorBoundary';
+import './index.css';
+import App from './App.tsx';
 
-// Polyfill Buffer for browser
+/* Buffer is required by @solana/web3.js. It is tiny, and keeping it here
+   avoids a race where the polyfill lands after the dashboard chunk. */
 window.Buffer = Buffer;
 globalThis.Buffer = Buffer;
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ErrorBoundary>
-      <WalletContextProvider>
-        <App />
-      </WalletContextProvider>
+      <App />
     </ErrorBoundary>
-  </StrictMode>,
-)
+  </StrictMode>
+);

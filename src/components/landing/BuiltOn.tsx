@@ -1,4 +1,4 @@
-import LogoLoop from '../backgrounds/LogoLoop';
+import LogoLoop from '../vendor/LogoLoop';
 
 /* Only technologies this project actually depends on — verifiable in
    package.json and src/lib. Jupiter is deliberately absent: the market-flow

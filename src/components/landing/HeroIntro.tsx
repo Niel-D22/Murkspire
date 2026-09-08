@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { ChevronDown } from 'lucide-react';
-import { useScrollProgress, mapRange } from './useScrollProgress';
+import { useScrollProgress, mapRange } from '../../hooks/useScrollProgress';
 
 const WORDMARK = 'MURKSPIRE'.split('');
 const TAGLINE = 'A SPIRE ABOVE THE MURK.';

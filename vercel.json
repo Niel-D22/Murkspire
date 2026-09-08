@@ -6,7 +6,8 @@
   "outputDirectory": "dist",
   "rewrites": [
     {
-      "source": "/:path*",
+      "comment": "SPA fallback for every path EXCEPT /api, which must reach the edge function",
+      "source": "/((?!api/).*)",
       "destination": "/index.html"
     }
   ]

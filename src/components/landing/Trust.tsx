@@ -1,4 +1,4 @@
-import AnimatedContent from '../backgrounds/AnimatedContent';
+import AnimatedContent from '../vendor/AnimatedContent';
 
 /* Every claim here is verifiable in the source — nothing aspirational. */
 const PILLARS = [
@@ -24,7 +24,7 @@ const PILLARS = [
   },
 ];
 
-const CHIPS = ['Non-custodial', 'Read-only RPC', 'No tracking', 'MIT license'];
+const CHIPS = ['Non-custodial', 'Read-only RPC', 'No tracking', 'No account'];
 
 export function Trust() {
   return (

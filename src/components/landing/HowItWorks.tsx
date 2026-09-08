@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
-import AnimatedContent from '../backgrounds/AnimatedContent';
-import SpotlightCard from '../backgrounds/SpotlightCard';
+import AnimatedContent from '../vendor/AnimatedContent';
+import SpotlightCard from '../vendor/SpotlightCard';
 import { CountUp } from './CountUp';
 
 /* The RPC methods below are the ones actually called in src/lib/helius.ts —

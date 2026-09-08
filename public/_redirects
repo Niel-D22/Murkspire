@@ -1,1 +1,3 @@
-/*    /index.html   200
+# Keep API routes out of the SPA fallback
+/api/*  /api/:splat  200
+/*      /index.html  200

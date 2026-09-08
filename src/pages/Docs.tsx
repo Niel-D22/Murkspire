@@ -238,7 +238,7 @@ export default function Docs() {
                   [<Term key="a">lib/helius</Term>, 'All chain reads and response parsing'],
                   [<Term key="b">pages</Term>, 'One file per dashboard module'],
                   [<Term key="c">components/landing</Term>, 'Public site sections'],
-                  [<Term key="d">supabase/functions</Term>, 'Edge functions behind the Live Feed'],
+                  [<Term key="d">lib/solana-price</Term>, 'Live SOL price and supply, with fallbacks'],
                 ]}
               />
             </Section>
@@ -352,7 +352,7 @@ export default function Docs() {
                   ['Signing', 'No code path can sign, send, or approve a transaction.'],
                   ['Accounts', 'No signup, no email, no password, and no session storage.'],
                   ['Wallet connection', 'Optional. It grants read access to a public address only.'],
-                  ['Licence', 'MIT. Every request the client makes is visible in the source.'],
+                  ['Transparency', 'Every request the client makes is visible in your browser network tab.'],
                 ]}
               />
 

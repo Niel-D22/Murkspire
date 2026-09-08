@@ -5,6 +5,7 @@ import { Modal } from '../components/ui/Modal';
 import { CopyButton } from '../components/ui/CopyButton';
 import { SearchBar } from '../components/ui/SearchBar';
 import { ExportButton } from '../components/ui/ExportButton';
+import { LoadingState } from '../components/ui/LoadingState';
 
 interface WhaleEvent {
   id: number;
@@ -138,10 +139,7 @@ export default function WhaleActivity() {
 
   if (loading) {
     return (
-      <div className="space-y-6">
-        <div className="shimmer h-32 card" />
-        <div className="shimmer h-64 card" />
-      </div>
+      <LoadingState title="Reading the chain" detail="Fetching whale transactions from Solana mainnet" />
     );
   }
 

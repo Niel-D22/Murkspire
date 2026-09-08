@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
-import { supabase, EDGE_FUNCTIONS } from '../lib/supabase';
+import { fetchRealTimeFeed } from '../lib/helius';
 import { Zap, Activity, TrendingUp, Shield, AlertCircle, Play, Pause } from 'lucide-react';
 import { Modal } from '../components/ui/Modal';
 import { SearchBar } from '../components/ui/SearchBar';
 import { ExportButton } from '../components/ui/ExportButton';
+import { LoadingState } from '../components/ui/LoadingState';
 
 interface FeedEvent {
   id: number;
@@ -31,20 +32,6 @@ export default function RealTimeFeed() {
   useEffect(() => {
     fetchFeedData();
     
-    // Setup realtime subscription
-    const channel = supabase
-      .channel('real_time_feed')
-      .on('postgres_changes', 
-        { event: '*', schema: 'public', table: 'real_time_feed' },
-        () => {
-          fetchFeedData();
-        }
-      )
-      .subscribe();
-
-    return () => {
-      supabase.removeChannel(channel);
-    };
   }, []);
 
   useEffect(() => {
@@ -63,20 +50,14 @@ export default function RealTimeFeed() {
 
   const fetchFeedData = async () => {
     try {
-      const response = await supabase.functions.invoke('aggregate-real-time-feed', {
-        body: {}
+      const { feed_events, count, sources } = await fetchRealTimeFeed();
+      setFeedEvents(feed_events);
+      setStats({
+        count,
+        whaleEvents: sources.whale_events,
+        marketFlows: sources.market_flows,
+        stakingUpdates: sources.staking_updates,
       });
-
-      if (response.data?.data) {
-        const { feed_events, count, sources } = response.data.data;
-        setFeedEvents(feed_events);
-        setStats({
-          count,
-          whaleEvents: sources.whale_events,
-          marketFlows: sources.market_flows,
-          stakingUpdates: sources.staking_updates
-        });
-      }
     } catch (error) {
       console.error('Error fetching feed data:', error);
     } finally {
@@ -158,10 +139,7 @@ export default function RealTimeFeed() {
 
   if (loading) {
     return (
-      <div className="space-y-6">
-        <div className="shimmer h-32 card" />
-        <div className="shimmer h-64 card" />
-      </div>
+      <LoadingState title="Opening the stream" detail="Aggregating events from every source" />
     );
   }
 

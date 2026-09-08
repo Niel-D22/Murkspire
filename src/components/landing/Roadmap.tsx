@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useScrollProgress, mapRange } from './useScrollProgress';
+import { useScrollProgress, mapRange } from '../../hooks/useScrollProgress';
 
 /* Track and path share one coordinate space so nodes always sit exactly on
    the curve. TRACK_W is both the SVG viewBox width and the pixel width of the

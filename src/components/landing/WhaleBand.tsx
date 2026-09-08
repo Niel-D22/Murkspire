@@ -25,10 +25,10 @@ const COLS =
 
 function Filter({ children }: { children: string }) {
   return (
-    <button className="flex items-center gap-2 rounded-lg border border-white/[0.09] bg-white/[0.02] px-3 py-2 text-xs text-zinc-300 transition-colors hover:border-white/20">
+    <span aria-hidden="true" className="flex items-center gap-2 rounded-lg border border-white/[0.09] bg-white/[0.02] px-3 py-2 text-xs text-zinc-300 transition-colors hover:border-white/20">
       {children}
       <ChevronDown className="h-3 w-3 text-zinc-500" />
-    </button>
+    </span>
   );
 }
 

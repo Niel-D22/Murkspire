@@ -5,6 +5,7 @@ import { Modal } from '../components/ui/Modal';
 import { CopyButton } from '../components/ui/CopyButton';
 import { SearchBar } from '../components/ui/SearchBar';
 import { ExportButton } from '../components/ui/ExportButton';
+import { LoadingState } from '../components/ui/LoadingState';
 
 interface StakingData {
   id: number;
@@ -125,10 +126,7 @@ export default function StakingMonitor() {
 
   if (loading) {
     return (
-      <div className="space-y-6">
-        <div className="shimmer h-32 card" />
-        <div className="shimmer h-64 card" />
-      </div>
+      <LoadingState title="Reading validators" detail="Fetching vote accounts and epoch data" />
     );
   }
 

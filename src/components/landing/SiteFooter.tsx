@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
-import AnimatedContent from '../backgrounds/AnimatedContent';
+import AnimatedContent from '../vendor/AnimatedContent';
 import { LogoVertical } from '../brand/Logo';
 import { XIcon, X_URL } from '../brand/XIcon';
 
@@ -83,7 +83,7 @@ export function SiteFooter() {
             <div className="lg:col-span-5">
               <LogoVertical className="!items-start" />
               <p className="mt-6 max-w-xs text-sm leading-relaxed text-zinc-500">
-                Real-time Solana intelligence. Read-only, non-custodial, open source.
+                Real-time Solana intelligence. Read-only, non-custodial, no account required.
               </p>
             </div>
 
@@ -126,7 +126,7 @@ export function SiteFooter() {
 
           <div className="mt-14 flex flex-col items-start justify-between gap-3 border-t border-white/[0.06] pt-8 sm:flex-row sm:items-center">
             <p className="font-mono text-xs text-zinc-600">
-              Murkspire &copy; {new Date().getFullYear()} · MIT licensed
+              Murkspire &copy; {new Date().getFullYear()}
             </p>
             <p className="font-mono text-xs text-zinc-600">
               Solana mainnet · read-only · no custody

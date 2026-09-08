@@ -1,6 +1,6 @@
 import * as Accordion from '@radix-ui/react-accordion';
 import { Plus } from 'lucide-react';
-import AnimatedContent from '../backgrounds/AnimatedContent';
+import AnimatedContent from '../vendor/AnimatedContent';
 
 const ITEMS = [
   {
@@ -24,8 +24,8 @@ const ITEMS = [
     a: 'Yes. There is no account, no paid tier, and no rate limit beyond what the upstream RPC provider enforces.',
   },
   {
-    q: 'Can I self-host it?',
-    a: 'Yes. The client is MIT licensed. Clone the repo, add your own Helius API key, and deploy it anywhere that serves static files.',
+    q: 'Does Murkspire store anything about me?',
+    a: 'No. There is no account, no cookie-based tracking and no server-side profile. Filters and preferences stay in your own browser.',
   },
 ];
 

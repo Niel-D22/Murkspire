@@ -1,6 +1,6 @@
 import { Activity, TrendingUp, Layers, Settings, Search } from 'lucide-react';
 import { LogoMark } from '../brand/Logo';
-import { useLiveTicker, relativeTime } from './useLiveTicker';
+import { useLiveTicker, relativeTime } from '../../hooks/useLiveTicker';
 
 const STATUS_STYLE: Record<string, string> = {
   confirmed: 'text-emerald-400/90',
