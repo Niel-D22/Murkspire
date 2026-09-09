@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# The dashboard is live data behind client-side routing; there is nothing
+# stable for a crawler to index there.
+Disallow: /app/
+
+Sitemap: https://murkspire.tech/sitemap.xml

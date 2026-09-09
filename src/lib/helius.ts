@@ -9,15 +9,12 @@
 
 import { getSolPrice, getSolSupply, KNOWN_MINTS, STABLE_MINTS } from './solana-price';
 
+import { DEFAULT_WATCHLIST } from './watchlist';
+
 /** Same path in dev (Vite middleware) and in production (edge function). */
 const PROXY = '/api/helius';
 
 /** Wallets watched by the whale tracker. */
-const WHALE_ADDRESSES = [
-  '86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY',
-  'DYw8jCTfwHNRJhhmFcbXvVDTqWMEVFBX6ZKUmG5CNSKK',
-  '3emsAVdmGKERbHjmGfQ6oZ1e35dkf5iYcS6U4CPKFVaa',
-];
 
 const TX_PER_WALLET = 12;
 const SUSPICIOUS_USD = 100_000;
@@ -118,11 +115,21 @@ async function fetchWalletTransactions(address: string): Promise<EnhancedTx[]> {
   return Array.isArray(json) ? json : [];
 }
 
-export async function fetchWhaleTransactions(): Promise<{
+/**
+ * @param addresses Wallets to read. Callers pass the visitor's watchlist;
+ *                  an empty list short-circuits without touching the network.
+ */
+export async function fetchWhaleTransactions(
+  addresses: string[] = DEFAULT_WATCHLIST.map((w) => w.address)
+): Promise<{
   whale_events: ParsedTransaction[];
   count: number;
   threshold: number;
 }> {
+  if (addresses.length === 0) {
+    return { whale_events: [], count: 0, threshold: WHALE_THRESHOLD_SOL };
+  }
+
   /* Previously this issued 33 requests one after another — one signature
      lookup plus ten getTransaction calls per wallet, all awaited in series.
      Measured end to end that took ~9.1s. The Enhanced Transactions API
@@ -130,7 +137,7 @@ export async function fetchWhaleTransactions(): Promise<{
      the three run concurrently: ~0.7s. */
   const [price, ...results] = await Promise.all([
     getSolPrice(),
-    ...WHALE_ADDRESSES.map((address) =>
+    ...addresses.map((address) =>
       fetchWalletTransactions(address)
         .then((txs) => ({ address, txs }))
         .catch((error) => {
@@ -422,13 +429,15 @@ const money = (n: number) =>
  * no longer resolves in DNS at all, so every call failed, the error was
  * swallowed by a catch, and the page sat empty forever.
  */
-export async function fetchRealTimeFeed(): Promise<{
+export async function fetchRealTimeFeed(
+  addresses?: string[]
+): Promise<{
   feed_events: FeedEvent[];
   count: number;
   sources: { whale_events: number; market_flows: number; staking_updates: number };
 }> {
   const [whales, market, staking] = await Promise.all([
-    fetchWhaleTransactions().catch(() => null),
+    fetchWhaleTransactions(addresses).catch(() => null),
     fetchMarketFlow().catch(() => null),
     fetchStakingData().catch(() => null),
   ]);

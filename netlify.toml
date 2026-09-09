@@ -1,0 +1,13 @@
+[build]
+  command  = "npm run build"
+  publish  = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# Edge functions are declared in the function file itself via `export const
+# config`, so /api/helius is claimed before the SPA fallback below.
+[[redirects]]
+  from   = "/*"
+  to     = "/index.html"
+  status = 200
