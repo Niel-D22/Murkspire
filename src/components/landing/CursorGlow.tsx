@@ -1,7 +1,7 @@
 import { Suspense, lazy, useEffect, useState } from 'react';
 
 /* ogl is only needed for this flourish, so keep it out of the initial bundle. */
-const GlowCursor = lazy(() => import('../vendor/GlowCursor'));
+const GlowCursor = lazy(() => import('../external/GlowCursor'));
 
 /**
  * A fixed, non-interactive overlay that trails the pointer.

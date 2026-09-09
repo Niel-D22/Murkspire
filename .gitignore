@@ -898,3 +898,14 @@
 
 # Source media, not deployed
 assets-src/
+
+# ---------------------------------------------------------------------------
+# Nothing under src/ is ever generated, so nothing under src/ may be ignored.
+#
+# This project uses a broad multi-language .gitignore, and its Composer rule
+# `**/vendor/` silently swallowed src/components/vendor/ — fourteen components
+# that existed locally, were never committed, and broke the deploy build with
+# "Cannot find module". These negations make that class of mistake impossible.
+# ---------------------------------------------------------------------------
+!src/
+!src/**

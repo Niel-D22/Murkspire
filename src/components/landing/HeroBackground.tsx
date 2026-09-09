@@ -1,9 +1,9 @@
 import { Suspense, lazy } from 'react';
-import { WebGLGuard } from '../vendor/WebGLGuard';
+import { WebGLGuard } from '../external/WebGLGuard';
 
 /* Both pull heavy deps (three.js / gsap) — keep them out of the initial bundle. */
-const ColorBends = lazy(() => import('../vendor/ColorBends'));
-const DotGrid = lazy(() => import('../vendor/DotGrid'));
+const ColorBends = lazy(() => import('../external/ColorBends'));
+const DotGrid = lazy(() => import('../external/DotGrid'));
 
 /* Static stand-in for the shader: two warm sweeps that read close enough
    to the animated version when WebGL is unavailable. */

@@ -1,4 +1,4 @@
-import AnimatedContent from '../vendor/AnimatedContent';
+import AnimatedContent from '../external/AnimatedContent';
 
 /* Every claim here is verifiable in the source — nothing aspirational. */
 const PILLARS = [

@@ -1,4 +1,4 @@
-import ScrollReveal from '../vendor/ScrollReveal';
+import ScrollReveal from '../external/ScrollReveal';
 
 /* Complaints, phrased the way people actually say them — not as feature copy.
    This section is deliberately the dimmest on the page: it is the "before"

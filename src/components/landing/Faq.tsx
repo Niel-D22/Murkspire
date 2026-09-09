@@ -1,6 +1,6 @@
 import * as Accordion from '@radix-ui/react-accordion';
 import { Plus } from 'lucide-react';
-import AnimatedContent from '../vendor/AnimatedContent';
+import AnimatedContent from '../external/AnimatedContent';
 
 const ITEMS = [
   {

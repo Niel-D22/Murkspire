@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
-import AnimatedContent from '../vendor/AnimatedContent';
+import AnimatedContent from '../external/AnimatedContent';
 import { LogoVertical } from '../brand/Logo';
 import { XIcon, X_URL } from '../brand/XIcon';
 
