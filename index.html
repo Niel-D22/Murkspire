@@ -3,32 +3,49 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Murkspire</title>
+
+    <title>Murkspire — Real-time Solana Intelligence</title>
     <meta
       name="description"
       content="Murkspire is a real-time Solana intelligence platform. Track whale activity, market flow, validator staking, and a live on-chain feed from one dashboard."
     />
-
-    <link rel="icon" type="image/png" href="/logo-512.png" />
-    <link rel="apple-touch-icon" href="/logo-512.png" />
+    <link rel="canonical" href="https://murkspire.tech/" />
     <meta name="theme-color" content="#0C0D0F" />
-  <link rel="canonical" href="https://murkspire.tech/" />
 
+    <!--
+      Google only renders a favicon in search results when the icon is square
+      and a multiple of 48px, and it checks /favicon.ico first. The old setup
+      declared only logo-512.png — 512 is not a multiple of 48 — which is why
+      the result showed a generic globe instead of the mark.
+    -->
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/icon-48.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/icon-96.png" />
+    <link rel="icon" type="image/png" sizes="144x144" href="/icon-144.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+    <link rel="apple-touch-icon" sizes="192x192" href="/icon-192.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Social cards need absolute URLs; crawlers cannot resolve a relative path. -->
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Murkspire" />
+    <meta property="og:url" content="https://murkspire.tech/" />
     <meta property="og:title" content="Murkspire — A spire above the murk." />
     <meta
       property="og:description"
       content="Real-time Solana intelligence: whale activity, market flow, staking, and a live feed."
     />
     <meta property="og:image" content="https://murkspire.tech/logo-512.png" />
-  <meta property="og:image:width" content="512" />
-  <meta property="og:image:height" content="512" />
-  <meta property="og:url" content="https://murkspire.tech/" />
-  <meta property="og:site_name" content="Murkspire" />
+    <meta property="og:image:width" content="512" />
+    <meta property="og:image:height" content="512" />
+
     <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Murkspire — A spire above the murk." />
-  <meta name="twitter:description" content="Real-time Solana intelligence: whale activity, market flow, staking, and a live feed." />
-  <meta name="twitter:image" content="https://murkspire.tech/logo-512.png" />
+    <meta name="twitter:title" content="Murkspire — A spire above the murk." />
+    <meta
+      name="twitter:description"
+      content="Real-time Solana intelligence: whale activity, market flow, staking, and a live feed."
+    />
+    <meta name="twitter:image" content="https://murkspire.tech/logo-512.png" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -36,6 +53,24 @@
       href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Murkspire",
+        "alternateName": "Murkspire — Real-time Solana Intelligence",
+        "url": "https://murkspire.tech/",
+        "description": "Real-time Solana intelligence: whale activity, market flow, validator staking, and a live on-chain feed.",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Murkspire",
+          "url": "https://murkspire.tech/",
+          "logo": "https://murkspire.tech/logo-512.png",
+          "sameAs": ["https://x.com/murkspire"]
+        }
+      }
+    </script>
   </head>
 
   <body>

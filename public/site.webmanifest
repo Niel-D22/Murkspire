@@ -1,0 +1,13 @@
+{
+  "name": "Murkspire",
+  "short_name": "Murkspire",
+  "description": "Real-time Solana intelligence: whale activity, market flow, staking and a live feed.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0C0D0F",
+  "theme_color": "#0C0D0F",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/logo-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
